@@ -1,0 +1,4 @@
+asm/gx_aee/data/header.s .text 0x200
+asm/gx_aee/Event/stage/stg_apart_e3fe.s .text 0x80
+asm/gx_aee/Event/stage/stg_apart_e3fe.s .data 0x100
+asm/gx_aee/Event/stage/stg_apart_e3fe.s .bss 0x80

@@ -1,0 +1,4 @@
+asm/gx_obs/data/header.s .text 0x200
+asm/gx_obs/Event/stage/stg_ovservation.s .text 0x80
+asm/gx_obs/Event/stage/stg_ovservation.s .data 0x100
+asm/gx_obs/Event/stage/stg_ovservation.s .bss 0x80

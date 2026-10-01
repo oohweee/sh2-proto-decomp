@@ -1,0 +1,25 @@
+# Order fits: matched functions whose float-constant argument order comes from a spelling chosen
+# for it (STYLE.md). Earlier code has two or more spellings that compile to the same instructions
+# (`x += 1` / `x = x + 1`, a macro / its statements, a helper / the expression written out), and
+# the one giving the original's order was picked (docs/toolchain.md, "Root cause"). The source is
+# plausible, but that exact spelling is inferred, not recovered. The `Matching:` note at the
+# chosen spelling says what was chosen; tools/progress.py counts these functions.
+#
+# unit function        # where the spelling is chosen
+Enemy/en_ike enIKECtrlAttack                # EN_SET_LEVEL in enIKECtrlSwing (file header)
+Enemy/en_insect enSetInsect                 # enINSInitData's &Data[0]; its own written-out level change
+Enemy/en_insect enINSCtrlApproach           # enINSCtrlMain's (*f[i])(dp); its own x = x + ...
+Enemy/en_insect enINSCtrlAttack             # enINSCtrlApproach's !dp->sslv
+Enemy/en_insect enINSCtrlChase              # enINSCtrlEscape's += 1; its own PI / 180.0f * 10.0f
+Enemy/en_insect enINSMove                   # enINSCtrlStay's !dp->sslv and PI / 180.0f * 10.0f
+Enemy/en_pap enPAPCtrlWander                # EN_SET_LEVEL in enPAPCtrlEvent
+Enemy/en_red enREDSoundLife                 # its own += 1
+Enemy/en_scu enSCUCtrlWander                # one EN_SET_LEVEL in enSCUCtrlGoPlayable
+Enemy/en_scu enSCUCtrlWaitCar               # enSCUCtrlAmbush's pa initializer
+Enemy/en_tyu enTYUCtrlOnWall                # its own EN_SET_LEVEL (both sites)
+Event/stage/stg_ovservation OB_DemoBlur     # GAME_FLAG as an inline helper
+Event/stage/stg_toilet Toilet_Dof_Filter    # its own toilet_dt = toilet_dt + shGetDT()
+Event/stage/stg_town_east CB_1stMoster_FogHosei  # GAME_FLAG as an inline helper
+Event/stage/stg_town_east Monster1st_Look   # its own read through sp, not scp->pos.z
+Fog/fog_blow fogMoveParticle2               # its own pd->erase != 0
+view/vc_main vcAdjustWatchYLimitHighWhenFarView  # DEG2RAD(-x) for negative angles (vcMixSelfViewEffectToWatchTgtPos)

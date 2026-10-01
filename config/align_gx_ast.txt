@@ -1,0 +1,4 @@
+asm/gx_ast/data/header.s .text 0x200
+asm/gx_ast/Event/stage/stg_apart_stair.s .text 0x80
+asm/gx_ast/Event/stage/stg_apart_stair.s .data 0x80
+asm/gx_ast/Event/stage/stg_apart_stair.s .bss 0x400

@@ -1,0 +1,44 @@
+# User-supplied game files (never commit)
+baserom/
+
+# Downloaded toolchains (fetched by tools/download_tools.py)
+tools/mwcc/
+tools/binutils/
+tools/wibo
+tools/decomp-permuter/
+tools/objdiff-cli*
+
+# Generated from the ELF by tools/gen_splat.py
+config/*.yaml
+config/symbols_*.txt
+config/relocs_*.txt
+config/relocated_*.txt
+include/macro.inc
+include/assets/
+
+# Build and splitter output
+build/
+asm/
+assets/
+*.o
+*.elf
+.ninja_*
+build.ninja
+objdiff.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# diff_unit experiment outputs
+src/**/*.c.o
+src/**/*.c.json
+
+# Editors and OS
+.DS_Store
+.vscode/
+.idea/
+
+# Disc images
+*.iso

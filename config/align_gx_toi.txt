@@ -1,0 +1,4 @@
+asm/gx_toi/data/header.s .text 0x200
+asm/gx_toi/Event/stage/stg_toilet.s .text 0x80
+asm/gx_toi/Event/stage/stg_toilet.s .data 0x200
+asm/gx_toi/Event/stage/stg_toilet.s .bss 0x80

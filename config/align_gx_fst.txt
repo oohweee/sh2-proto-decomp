@@ -1,0 +1,4 @@
+asm/gx_fst/data/header.s .text 0x200
+asm/gx_fst/Event/stage/stg_forest.s .text 0x80
+asm/gx_fst/Event/stage/stg_forest.s .data 0x80
+asm/gx_fst/Event/stage/stg_forest.s .bss 0x200

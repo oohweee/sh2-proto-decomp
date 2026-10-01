@@ -1,0 +1,10 @@
+# Compiler settings the original used for a whole file (STYLE.md "Pragmas"): extra MWCC flags,
+# appended to configure.py's CFLAGS by configure.unit_cflags, which the build and every tool that
+# compiles a unit use. Format: <unit> <flags...>, with the evidence in the comment above the line.
+
+# Inlining off: every header inline function the file calls is out of line, each copy right after
+# its first caller (_sceVu0RotTransPers and sh2gde_getWorldScreenMatrix after
+# shLensFlareSetLightSeed, ktVectorNormal and _sceVu0Normalize after shLensFlareMakeScreenAngle,
+# sh2gde_getWorldViewMatrix after shLensFlareMakeScreenInfo), including the call inside the header
+# function ktVectorNormal; no call in the file is inlined. docs/headers.md, sections 2 and 5.
+Lens/lens_flare -inline off

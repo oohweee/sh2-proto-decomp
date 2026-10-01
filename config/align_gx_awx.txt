@@ -1,0 +1,5 @@
+asm/gx_awx/data/header.s .text 0x200
+asm/gx_awx/Event/stage/stg_apart_w1f.s .text 0x80
+asm/gx_awx/Event/stage/stg_apart_w1f.s .data 0x400
+asm/gx_awx/Event/stage/stg_apart_w1f.s .rodata 0x80
+asm/gx_awx/Event/stage/stg_apart_w1f.s .bss 0x200

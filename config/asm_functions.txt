@@ -1,0 +1,8 @@
+# Functions linked from the original code because their C does not match yet (see
+# tools/asm_fallback.py). Format: [<target>:]<unit> <function>. The C version stays in the file,
+# marked NON_MATCHING. Remove a line once the C matches.
+view/vc_main vcMakeFarWatchTgtPos
+Chacter/m3_play_3d lower_walk_3d
+Chacter/m3_play_3d lower_back_3d
+Chacter/m3_play_3d upper_back_3d
+Fog/fog fog_part_wall

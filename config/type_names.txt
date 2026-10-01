@@ -1,0 +1,91 @@
+# Names for anonymous aggregates in include/sh2/types.h (read by tools/gen_headers.py).
+# Format: <anon name> <new name>  # evidence
+# The DWARF has no typedefs, so anonymous types get layout-hash names. Each new name must be
+# unique: it becomes both the struct tag and the typedef in types.h.
+# "sce*" names are the Sony SDK's typedef names, as the game's calls to the SDK use them. The
+# layout is the game's own: from its DWARF (member names and offsets) where the type has them,
+# otherwise from how the game uses it.
+
+# --- Sony SDK: libpkt, libdma, libgraph, libipu, libcdvd, sif, libmc, libscf, libmpeg
+anon_10_23b0cbd5 sceGifPacket            # libpkt layout (pCurrent, pBase, pDmaTag, pGifTag); locals `packet` in pss_disp.c
+anon_20_4f0829fa sceVif0Packet           # libpkt layout (pVifCode, numlen, pad11-13); locals `pk` in model3_vu0_n.c LoadProgram_Vu0
+anon_20_7ad33c51 sceVif1Packet           # libpkt layout (pVifCode, numlen, pGifTag); globals _Vif1_Packet, efctVif1Packet; HH_Vif1Packet_Current_Get()
+anon_90_8d487624 sceDmaChan              # libdma layout (chcr, madr, qwc, tadr, as0, as1, sadr); Vif0Work.dma, Vif1Work.dma
+anon_28_fd36f2b1 sceGsDispEnv            # libgraph layout (pmode, smode2, dispfb, display, bgcolor); shGsAllEnv.DispEnv; shGsSetDefTBuffDispEnv(disp)
+anon_80_5cc94cf9 sceGsDrawEnv1           # libgraph layout (frame1, zbuf1, xyoffset1, scissor1, ..., test1); shGsDrawEnv.draw
+anon_60_5937e628 sceGsClear              # libgraph layout (testa, prim, rgbaq, xyz2a, xyz2b, testb); shGsDrawEnv.clear
+anon_230_cce6c640 sceGsDBuff             # libgraph layout (disp[2], giftag0, draw0, clear0, giftag1, draw1, clear1); _PssCommonWork.db
+anon_70_5697816f sceGsStoreImage         # libgraph layout (vifcode, giftag, bitbltbuf, trxpos, trxreg, finish, trxdir); sh2gfw_GsSetDefStoreImage(sp)
+anon_180_11b4400c sceIpuRAW8             # libipu layout (y[256], cb[64], cr[64]); local `raw8` in decBs0 (sceMpegGetPictureRAW8)
+anon_4_ed573cca sceCdRMode               # libcdvd layout (trycount, spindlctrl, datapattern); shCdRead(lsn, sectors, buf, mode)
+anon_24_830f8413 sceCdlFILE              # libcdvd layout (lsn, size, name[16], date[8], flag); shCdSearchFile(file, fullpath)
+anon_8_46bd935e sceCdCLOCK               # libcdvd layout (stat, second, minute, hour, pad, day, month, year); shCdReadClock(rtc)
+anon_10_e15f3fd5 sceSifDmaData           # sif layout (data, addr, size, mode); local transData in sendToIOP, passed to sceSifSetDma
+anon_40_b9fc5c9c sceMcTblGetDir          # libmc layout (_Create, _Modify, FileSizeByte, AttrFile, ..., EntryName[32]); MC_WORK2.dirtbl; mcGetDt()
+anon_3C4_33f6a15d sceMcIconSys           # libmc icon.sys layout (Head, OffsLF, BgColor, LightDir, TitleName, FnameView, ...); locals mc_IconSys
+anon_8_48e5f691 sceScfT10kConfig         # libscf layout (TimeZone, Aspect, DateNotation, Language, ...); locals sh2ScfInfo, ps2ScfDefault
+anon_48_7dfd4c0b sceMpeg                 # libmpeg layout (width, height, frameCount, pts, dts, flags, ..., sys); global sys_mpeg
+anon_8_d17d030e sceMpegCbDataError       # libmpeg layout (type, errMessage); mpegError(mp, cberror, anyData)
+anon_18_fb99fde8 sceMpegCbDataTimeStamp  # libmpeg layout (type, pts, dts); mpegTS(mp, cbts, anyData)
+anon_20_58054f9f sceMpegCbDataStr        # libmpeg layout (type, header, data, len, pts, dts); videoCallback(mp, str, data)
+anon_20_58941be0 sceMpegCbData           # libmpeg union (type, error, ts, str); argument of the videoDecSetStream() callback
+
+# --- movie player (src/movie: type name = the prefix of the functions that take it, else by analogy with a DWARF name or Pss as in the file names)
+anon_C0_e035d8af VideoDec                # global videoDec; videoDecCreate(vd, ...), videoDecMain(vd)
+anon_60_f70b7f91 ViBuf                   # VideoDec.vibuf; viBufCreate(f, ...), viBufReset(f)
+anon_18_1a778700 ViBufTs                 # viBufPutTs(f, ts), viBufGetTs(f, ts), viBufModifyPts(f, new_ts); ViBuf.ts; _PssCommonWork.timeStamp[]
+anon_18_0d21b40e VoBuf                   # global voBuf; voBufCreate(f, ...), voBufIsFull(f)
+anon_40_7e0547ff VoBufTag                # voBufGetTag() returns it; VoBuf.tag/tagInter; global voBufTagInter
+anon_60000_75f6aafa VoBufData            # voBufGetData() returns it; VoBuf.data; _PssCommonWork.voBufDatap
+anon_5C_0c79793a AudioDec                # global audioDec; audioDecCreate(ad, ...), audioDecSendToIOP(ad)
+anon_5000C_ca9ccf73 ReadBuf              # _PssCommonWork.readBufp; readBufCreate(b), readBufBeginPut(b, ...)
+anon_18_073a3c2a CscVu1                  # VideoDec.csc; cscVu1Init(csc), cscVu1Xyz2offset(csc, ...)
+anon_10_4b4dbe18 PssQword                # union q/l[2]/i[4]/s[8]/c[16] (a quadword); scTag2(q, ...) in pss_vibuf.c; Pss as in PssStrFile
+anon_34_fa413f75 PSS_EXEC_CTRL           # global pssExecCtrl (cf. pssSubTitleCtrl : _PSS_SUBTITLE_CTRL); members status, ctrl, file, isPaused
+anon_C_83c371bf PssStrFile               # pss_strfile.c static `d` behind strFileOpen/Read/Size/Close (id, size, ofs)
+
+# --- sh2gfw graphics framework
+anon_60_dfc67538 sh2gfw_AREA_MAN         # global Area_Data_Man; params pA_MAN (cf. pB_man : sh2gfw_BLOCK_MAN); sh2gfw_TRANS_MAN.pA_M; member pA_H
+anon_10_656d7e36 sh2gfw_GSPACK_MAN       # global GSCTL_man; sh2gfw_init_GSPACKMAN(Gman); members GS_kick, GS_tail, transnum
+anon_130_e2f8b1a5 sh2gfw_LIGHT_ENV       # global LightEnv; sh2gfw_allinit_lightenv(slv); sh2gfw_BLOCK_MAN.blk_LightData
+anon_220_085e6e90 sh2gfw_CAMERA          # globals cam0, Shadow_Mini_Camera; `cam` param of shadow_main etc.; members pos, zdir, world_view, view_screen (provisional: thin evidence)
+anon_10_ee6c0ca7 Stage_GfwFunc           # Stage_Data.gfw_func; members SpecDraw, PreDraw, PostDraw, CharaDraw_Hook; stage statics SpecialDrawFunctions
+
+# --- view camera (vc_main.c)
+anon_10_5f2c1c5a VC_PROJECTION_PARAM     # global vcProjectionParam (cf. vcCamMvPrmSt : _VC_CAM_MV_PARAM); members new, old, delta, flg
+
+# --- generic vector/matrix (one layout shared by many compile units)
+anon_10_7e613958 FVEC                    # float x, y, z, w; SubCharacter.pos/rot, globals pos, rot; SCSetRot(scp, rot)
+anon_10_70990aeb IVEC                    # int x, y, z, w; lens-flare l_screen_pos and colors
+anon_40_6a09512a FMAT                    # float d[4][4]; SubCharacter.mat, shSkelton.src_m/des_m, _Gte.matrix, global kt_unit_matrix
+
+# --- scissor clipping (sh2gfw_util.c)
+anon_50_a7966342 ScissorNode             # members vertex, normal, color, texUV, clipV; CopyNode(nod0, nod1), InterpNode(inter, inside, outside, ...)
+anon_330_0e4a02e5 ScissorNodeArray       # members node[10], nodeNum; ScissorNodeArraySet.triangle/narray/in/out
+anon_9A0_ee6165c0 ScissorNodeArraySet    # InitNodeArraySet(scissorflip), ResetNodeArraySet, FlipNodeArray, ScissorTriangle(scissorflip, planeset)
+anon_8_3eba1181 ScissorPlane             # members xyzflag, clipmask; ScissorPlaneSet.plane[6]; local `plane` in ScissorTriangle
+anon_34_6df3b885 ScissorPlaneSet         # members plane[6], planeNum; InitScissorPlane(sp), ScissorTriangle(..., planeset)
+
+# --- lens flare (lens_flare.c, kari_lf_draw.c)
+anon_40_eec96dd2 shLensFlareWork         # global light_flare_work[2]; `lf_work` param of shLensFlareDrawCommon, shLensFlareMakeScreenPos
+anon_30_bf660512 shLensFlareLightInfo    # global light_info[2]; shGetJamesLightInfo(l_info), shLensFlareMakeScreenInfo(..., l_info)
+anon_10_6ccea476 shLensFlareScreenInfo   # global screen_info; `sc_info` param of shLensFlareDrawCommon; members center_x/y, width, height
+
+# --- game state, events, menus
+anon_4A0_323d325d GAME_FLAG_DATA         # global game_flag; SAVE_DATA.game_flag; members flag[255], enemy[32], puzzle states
+anon_24_022fcc5d Event_JmsInfo           # event.c local `jms` (James pos, rot_y, view and rear points) passed to EventCheckIn/EventCheckLook
+anon_8_b2772875 Event_ExecItemData       # event.c static table eei_data[] in EventExecItem; members item, msg, chara_id (provisional: thin evidence)
+anon_10_514135bd Memo_Data               # memo.c static table data[45]; members flag, status, msg_label, msg_memo, file0, file1 (provisional: thin evidence)
+anon_360_3e4c67d3 DramaDemo_KeyFrame     # demoview.c globals base/last/next, interpolated by demo_frame; members frame, camera, light[6], character[7] (provisional: thin evidence)
+anon_14_d9ef1319 JumpMenu_UserData       # jump_menu.c static user_data (x, z, flg, trg, glb_crd); cf. JumpMenu_List
+anon_18_2e34488d Title_StartPoint        # globals TitleJPStartPointList[5], TitleUSPStartPointList[3]; members pos_x/y/z, rot, stg, jump_nemu_id
+anon_20_0cfc88ba Title_SprData           # global TitleSpr[17]; members u0, v0, u1, v1, w, h, rgba[4]
+anon_30_13114b1c Title_ChgColorInfo      # global TitleSprChgColor[17]; locals chg_color_info; members start_rgba, end_rgba, cycle, timer
+anon_94_6ac84362 Title_Data              # global TitleData (title screen state: memcard, mode, sel, menu[], pic0); cf. Stage_Data
+anon_2A0_f8505ffa ItemMainWork           # otn_itemmain.c global `t` (item screen state: main_step, command_cur, item_no, combine[]); cf. OptionWork (provisional: thin evidence)
+anon_14_7dfbf76d ItemSelect              # otn_itemmain.c global item_select[75]; members kind, count, del, pos[2], rot, item_scale
+anon_7C_674c7a1c OptionWork              # otn_option.c global `t` (option_step, cursol, key_config_set)
+anon_A0_544863da EF_DRAW_DATA            # globals efCartDrawData, efRainDrawData (cf. _EF_CARTDISCH_DATA); members spoton, ambcol, lightpos, wcm (provisional: thin evidence)
+anon_C_50ad5298 Sd3dChangeData           # sh_sound.c static change_list[242], maps sd_se <-> sd_3d per 3D-SE file; cf. Sd3dDataStruct (provisional: thin evidence)
+anon_1101C_cbf0d3a6 loadBgEvent_Work     # loadbg_event.c static `d` (cleared by initwork()); loadBgMem ctrl, unit arrays, SectList, filelist (provisional: thin evidence)
+anon_314_50f766de loadBgChara_Work       # loadbg_chara.c static `d` (initwork()); same loadBgMem_* parts, smaller arrays (provisional: thin evidence)

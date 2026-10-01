@@ -1,0 +1,36 @@
+# Style reference for newly written C (see STYLE.md). Do NOT run it over existing files.
+#
+# Line numbers are part of the matching build: asserts and log macros bake __LINE__ into strings.
+# clang-format has no way to leave line breaks alone (even with ColumnLimit 0 it splits braced
+# initializer lists with a trailing comma one element per line), so a whole-file format moves
+# lines and breaks the match. Use it on a selection you are writing (clang-format --lines), and
+# let tools/lint.py check the rules that never move lines.
+BasedOnStyle: LLVM
+Language: Cpp
+IndentWidth: 4
+ContinuationIndentWidth: 4
+UseTab: Never
+ColumnLimit: 0
+MaxEmptyLinesToKeep: 100000
+KeepEmptyLinesAtTheStartOfBlocks: true
+ReflowComments: false
+SortIncludes: Never
+BreakBeforeBraces: Attach
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+IndentCaseLabels: false
+PointerAlignment: Right
+SpaceAfterCStyleCast: false
+AlignAfterOpenBracket: DontAlign
+AlignOperands: DontAlign
+AlignTrailingComments: false
+AlignConsecutiveMacros: None
+AlignEscapedNewlines: DontAlign
+BinPackArguments: true
+BinPackParameters: true
+Cpp11BracedListStyle: false
+InsertTrailingCommas: None

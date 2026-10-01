@@ -1,0 +1,4 @@
+asm/gx_aew/data/header.s .text 0x200
+asm/gx_aew/Event/stage/stg_apart_e3fw.s .text 0x80
+asm/gx_aew/Event/stage/stg_apart_e3fw.s .data 0x80
+asm/gx_aew/Event/stage/stg_apart_e3fw.s .bss 0x80

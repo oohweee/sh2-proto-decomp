@@ -1,0 +1,23 @@
+# The checks that need neither the game disc nor the build (tools/check_all.sh runs the rest
+# locally): the mechanical source rules and FAKEMATCH notes (tools/lint.py), and the path:line
+# citations in the docs (tools/check_refs.py). Both use only the tracked files and Python's
+# standard library.
+name: checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 tools/lint.py
+      - run: python3 tools/check_refs.py
+        if: success() || failure()  # report the citations even when lint fails

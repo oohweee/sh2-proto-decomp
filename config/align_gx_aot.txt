@@ -1,0 +1,4 @@
+asm/gx_aot/data/header.s .text 0x200
+asm/gx_aot/Event/stage/stg_apart_out.s .text 0x80
+asm/gx_aot/Event/stage/stg_apart_out.s .data 0x800
+asm/gx_aot/Event/stage/stg_apart_out.s .bss 0x80

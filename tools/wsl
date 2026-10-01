@@ -1,0 +1,7 @@
+#!/bin/sh
+# Run a command inside the WSL build environment at the repo root, from Git Bash on Windows:
+#   tools/wsl .venv/bin/python tools/diff_unit.py DBG/dbalocate
+# The repo path is derived from this script's location (Git Bash /c/... -> WSL /mnt/c/...).
+repo=$(cd "$(dirname "$0")/.." && pwd)
+repo=$(printf '%s' "$repo" | sed -E 's#^/([A-Za-z])/#/mnt/\L\1/#')
+exec env MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu-24.04 -u root --cd "$repo" -- "$@"

@@ -1,0 +1,4 @@
+asm/gx_twe/data/header.s .text 0x200
+asm/gx_twe/Event/stage/stg_town_east.s .text 0x80
+asm/gx_twe/Event/stage/stg_town_east.s .data 0x200
+asm/gx_twe/Event/stage/stg_town_east.s .bss 0x200

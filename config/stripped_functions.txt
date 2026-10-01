@@ -1,0 +1,13 @@
+# Functions the original Metrowerks linker dead-stripped: written in the C source (their
+# string literals are still in .rodata), emptied by tools/mwcc_fixup.py. Stripped functions have
+# no DWARF, so their names are unknown: each is `__stripped_*` (STYLE.md, "Names"), and the
+# comment says what it is guessed to have been.
+__stripped_mc_code  # MC/mc (guess: an extra-data setter; its assert strings are pooled with mcSetExtraDirName's)
+__stripped_clani_code  # Chacter_Draw/clani (guess: a cluster-count accessor; its "cap" and "cap->used" literals survive)
+__stripped_light_n_code  # Chacter_Draw/light_n (guess: another per-n matrix accessor; its "n < 2" literal survives)
+__stripped_m3_play_3d_code  # Chacter/m3_play_3d (evidence is codegen only: its double math puts upper_walk_3d in the a0/a1-avoid mode; guess: a copy of the 2D file's PlayerChangeAngleToCameraY)
+__stripped_double_code  # STRIPPED_DOUBLE_CODE() in include/common.h: an unknown stripped function with double math
+__stripped_float_code*  # tools/constcount.py stand-ins: unknown stripped code with float constants (sets MWCC's constant count)
+__stripped_ef_flame_code  # Effect/ef_flame (guess: a flame allocator; its assert_dw(0) "0" string survives first in .rodata)
+__stripped_sh2shd_char_jms_code  # sh2shd/sh2shd_char_jms (guess: an unordered sh2shd_make_reftag_pool_char_for_drop; its assert(0) "0" string precedes line 1180's format)
+__stripped_anime_code  # Chacter/anime: its zero-initializer .bss template (0x80) survives at the unit's .bss start

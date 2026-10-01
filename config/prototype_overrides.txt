@@ -1,0 +1,161 @@
+// Full prototypes that replace the DWARF-derived ones in include/sh2/functions.h.
+// MWCC's DWARF drops `...` from variadic functions.
+int verbose(int level, char *format, ...);
+int dbfntprintf(char *fmt, ...);
+int dbfntprintfR(char *fmt, ...);
+// MWCC also leaves parameters a function never uses out of the DWARF.
+void shadow_main(unsigned int paddata, struct sh2gfw_CAMERA *cam, float (*local_world)[4]);
+void drop_shadow_main(unsigned int paddata, struct sh2gfw_CAMERA *cam, int arg2, int arg3);
+void shdw_shadow_filter_main(int arg0);
+float shAtan2(float y, float x);
+void voBufCreate(struct VoBuf *f, struct VoBufData *data, struct VoBufTag *tag, struct VoBufTag *tagInter, int arg4, int arg5, int size);
+// m3_play_common's per-state handlers that m3_play_2d/3d call with the character: their
+// parameter is unused, so the DWARF dropped it (the callers' DWARF has p, so they passed it).
+void upper_relax(struct SubCharacter *p);
+void lower_alert(struct SubCharacter *p);
+void upper_alert(struct SubCharacter *p);
+void upper_ready(struct SubCharacter *p);
+void lower_readyoff(struct SubCharacter *p);
+void upper_readyoff(struct SubCharacter *p);
+void upper_release(struct SubCharacter *p);
+void upper_fall(struct SubCharacter *p);
+void upper_damage(struct SubCharacter *p);
+void lower_to_stand(struct SubCharacter *p);
+void upper_to_stand(struct SubCharacter *p);
+void upper_wall_f(struct SubCharacter *p);
+// Hand-written asm functions in SH2_common/sh_vu0: the DWARF shows (void). Signatures read from
+// the registers each function consumes (f12 = first float, a0 = first pointer).
+float shAngleRegulate(float angle);
+float shSinF(float angle);
+float shCosF(float angle);
+float shAtanV(float *v);
+void shSinCosV(float *v, float angle);
+// Characters, collision, camera, sound, events, graphics, movie callbacks: unused parameters the
+// DWARF dropped (the callers pass them), and hand-written asm functions (shQzero, shSway1f).
+void *shCharacterGetAnimeAdrForDrama(struct SubCharacter *scp, int anime_index);
+void SCSetModel(struct SubCharacter *scp, int model, int anime);
+void clCheckHitEyesOnlyFloor(struct _CL_VHIT_RESULT *res, struct SubCharacter *scp, float *sp, float *ep);
+void MariaCheckAnime(struct SubCharacter *scp);
+void shQzero(void *adr, int size);
+float shSway1f(float min, float max);
+void vcEndProcessingOldNearRoad(struct _VC_NEAR_ROAD_DATA *old_cur_p, struct _VC_WORK *w_p);
+void vcCorrectCamMatAngForcibly(float *ofs_cam_ang, struct _VC_ROAD_DATA rd_data);
+int sd_3d_move(int no, int arg1, int arg2, float arg3, float arg4);
+void MWNotifyOverlayLoaded(void *ovl);
+int EvSubFileLoadAndFadeOut(int mode, union fsFileIndex *file_0, union fsFileIndex *file_1);
+void Make_Filter_Packet(void *pb, int mode);
+void sh2gfw_clear_TexMAN_TransParm(struct sh2gfw_ALLTEXSYNC_MAN *pATSM);
+void kari_DBG_print_junbi(unsigned long *res, unsigned long *res2);
+void DemoFadeDraw2(int a, int b, int c, int d);
+int sh2gfw_LoadInit_CharaModelData(struct chr_mge_files *cdl);
+int videoCallback(struct sceMpeg *mp, struct sceMpegCbDataStr *str, void *data);
+int pcmCallback(struct sceMpeg *mp, struct sceMpegCbDataStr *str, void *data);
+// Not overridden on purpose: sd_call, sh2gfw_set_GSREGS2Vu and sh2gfw_VUMATIRICES_registchain are
+// defined with the DWARF's parameter list; some callers passed extra arguments through unprototyped
+// declarations, which those callers reproduce locally (`local` lines below, or block-scope ones).
+// More hand-written asm functions in SH2_common/sh_vu0 (signatures from the asm and their callers).
+void shSinCosV_Scale(float *v, float angle, float scale);
+void shRotVectorY(float *dst, float *src, float angle);
+void shRotMatrixX(float (*dst)[4], float (*src)[4], float angle);
+void shRotMatrixY(float (*dst)[4], float (*src)[4], float angle);
+void shRotMatrixZ(float (*dst)[4], float (*src)[4], float angle);
+void shRandV_Scale(float *v, float scale);
+void shCreateNormal(float *n, float *v0, float *v1, float *v2);
+void shSetMiniMaxN(float *min, float *max, float (*v)[4], int n);
+void shFill(void *adr, int data, int num);
+// Battle, animation, camera, collision, effects, movie callbacks and handlers: parameters the DWARF
+// dropped (unused) or listed as locals (by-value structs).
+int shBattleListenHumanSound(struct SubCharacter *scp, struct SubCharacter *tgt);
+void shCharacterAnimePartsControl(struct shAnime3d *ap, struct shSkelton *stp, struct FVEC *rot);
+float vcRetNearRatioSwitchAreaInXZPos(struct _VC_NEAR_ROAD_DATA cur_near_road, float *chr_pos, float *cam_tgt_pos);
+float vcRetNearRatioSwitchAreaForCircleCam(struct _VC_NEAR_ROAD_DATA cur_near_road, struct _VC_CIR_CAM_MANAGER cir_man, float *chr_pos);
+void vcMoveAndSetCamera(int in_connect_f, int arg1, int for_f, int back_f, int right_f, int left_f, int up_f, int down_f);
+void clCheckHitEyesOnlyFloorThru(struct _CL_VHIT_RESULT *res, struct SubCharacter *scp, float *sp, float *ep);
+unsigned int InitEffectVertexSprite(float *Pos, float width, float height, unsigned short PlaneKind, struct EFCTVertexData **pVertex, float *rot, unsigned char *rgba);
+void HH_DBG_Wrapper_Printf(unsigned int x, unsigned int y, unsigned char *str);
+int mpegError(struct sceMpeg *mp, struct sceMpegCbDataError *cberror, void *anyData);
+int mpegTS(struct sceMpeg *mp, struct sceMpegCbDataTimeStamp *cbts, void *anyData);
+int vblankHandler(int val);
+int handler_endimage(int val);
+// Lights, shadows, model drawing, enemy attack positions, filters: unused parameters the DWARF
+// dropped (callers pass them).
+void LightSetFakeSpot(int n, float *pos, float *dir, float *color, float f_start, float f_end, float s_start, float s_end);
+int sh2shd_Draw_ShadowChar(struct SubCharacter *scp, void *kg1, unsigned short kind, unsigned short id, short light_kind, float *light_pos, float *light_dir, float *light_param);
+void Model3Draw_n(void *scp_d_, void *model_, void *work_, float (*mwm)[4], float (*ws_mat)[4], int flag);
+void shGetEnemyIKEAttackPos(struct SubCharacter *scp, float *s_pos, float *s_vec, unsigned short atk);
+void shGetEnemyNSEAttackPos(struct SubCharacter *scp, float *s_pos, float *s_vec, unsigned short atk);
+void shGetEnemyONIAttackPos(struct SubCharacter *scp, float *s_pos, float *s_vec, unsigned short atk);
+void shGetEnemyTYUAttackPos(struct SubCharacter *scp, float *s_pos, float *s_vec, unsigned short atk);
+void sh2gfw_Set_FilterData(int NoD, int arg1, union Q_WORDDATA *col);
+void sh2shd_init_outdoor_man2(struct SHADOW_OUTDOOR_MAN *man, union Q_WORDDATA *raw_data, short arg2, short light_kind, float *light_pos, float *light_dir, float *light_param);
+// Globals the DWARF types wrongly: the code indexes two entries and .bss holds 0x80 bytes.
+extern struct shLensFlareWork light_flare_work[2];
+// Effects, lights, shadows, fades: unused parameters the DWARF dropped (callers pass them).
+void HH_Effect_Object_WaterSplash_Impact_Post(float *Location, int kind);
+void LightGetNthViewNHM(float (*nhm)[4], int n);
+void SetFlameSmokeValid(int index, int valid);
+void sh2shd_renew_char_man_for_spot(struct SHADOW_CHAR_MAN *man, float *spot_pos, float leng, struct SHADOW_ENV *shadow_env);
+void sh2shd_calc_light_position_for_self(float *light_pos, unsigned short kind, short id, struct JMS_SHADOW_ENV *env, float *chara_pos, float height);
+void sh2gfw_Swap_Soft(union Q_WORDDATA **ppqwd, int mode, int arg2, int CompoIt, int aref, int testval, int testmode);
+int sh2gfw_Fade3(union Q_WORDDATA **ppqwd, int mode, int *color);
+int check_self_spot(unsigned short kind);
+int check_self_para(unsigned short kind);
+void HH_Effect_Object_Blood_Pool_Impact_Post(float *Location, int kind);
+// Movie player (PSS): callback types, and unused parameters the DWARF dropped.
+int videoDecSetStream(struct VideoDec *vd, int strType, int ch, int (*cb)(struct sceMpeg *, union sceMpegCbData *, void *), void *data);
+void readBufDelete(struct ReadBuf *b);
+void voBufDelete(struct VoBuf *f);
+int audioDecDelete(struct AudioDec *ad);
+int mpegNodata(struct sceMpeg *mp, union sceMpegCbData *cbdata, void *anyData);
+int mpegStopDMA(struct sceMpeg *mp, union sceMpegCbData *cbdata, void *anyData);
+int mpegRestartDMA(struct sceMpeg *mp, union sceMpegCbData *cbdata, void *anyData);
+// Graphics (sh2gfw): unused parameters the DWARF dropped.
+int sh2gfw_SetSlot2Tex(struct sh2gfw_TexMAN *sTM, int slotno, int mode);
+int sh2gfw_packet_Poly_LocalTexUsing(struct sh2gfw_BLOCK_MAN *pB_man, struct sh2gfw_AREA_MAN *pAMAN, union Q_WORDDATA *b_p, union Q_WORDDATA *g_p);
+// The DWARF says 32 entries; the .bss object holds 48 (0x1BC0 = 48 * 0x94) and every loop runs to 48.
+extern struct sh2gfw_ModelDraw_MAN ModelDW_Man[48];
+// Effects and lights: parameters the DWARF dropped (unused; the callers pass them).
+void EFCTSetGunSmoke(float *Pos);
+void sh2gfw_Set_SpotLight(float *dir, float *pos, float *color, int arg3, float falloff_start, float falloff_end, float spread_pi);
+// The DWARF can't tell `()` from `(void)` (MWCC writes no AT_prototyped). fog_part_newpos is defined
+// and called unprototyped in Fog/fog.c (fogSetPartNum passes it an argument), and the callers of
+// clSetCharaHitColumn pass callbacks of two types (void (*)(void), void (*)(struct SubCharacter *)).
+void fog_part_newpos();
+void clSetCharaHitColumn(struct _CL_HITPOLY_COLUMN *col, struct _CL_HITPOLY_COLUMN *wcol, struct SubCharacter *sc, void (*func)());
+// The DWARF drops volatile; these are volatile in the units that define (and alone use) them: their
+// code loads them again where MWCC reloads only a volatile (notes in pss_disp.c and sh_cdvd.c).
+extern volatile int isUp;
+extern volatile int vblankCount;
+extern volatile struct shHdWork shHdWork;
+// `local <function> <unit> <reason>`: the unit declares the function itself, so gen_headers.py wraps
+// the generated prototype in #ifndef SH2_LOCAL_<function>, which the unit defines before including
+// sh2.h (with a Matching: note). A function that is also a static function of another unit is
+// wrapped the same way without a line here (found in the DWARF).
+local GameMariaDamagedCountUp Chacter/m3_maria_sub called without a prototype (the float damage goes as a double)
+local sd_call movie/pss_audiodec called without a prototype, with five arguments
+local ClusterAnimeExec Chacter/m3_sc called without a prototype, with an extra argument
+local shCharacterSetHumanLAULow Chacter/m3_sc called without a prototype
+local shCharacterSetHumanMARLow Chacter/m3_sc called without a prototype
+local shCharacterSetHumanDMARLow Chacter/m3_sc called without a prototype
+local shCharacterSetHumanAGLLow Chacter/m3_sc called without a prototype
+local shCharacterSetHumanRAGLLow Chacter/m3_sc called without a prototype
+local shCharacterSetHumanEDILow Chacter/m3_sc called without a prototype
+local shCharacterSetHumanMRYLow Chacter/m3_sc called without a prototype
+local shCharacterSetHumanMXXLow Chacter/m3_sc called without a prototype
+local shCharacterSetHumanBOTLow Chacter/m3_sc called without a prototype
+local shCharacterSetHumanINULow Chacter/m3_sc called without a prototype
+local shCharacterSetEnemySCULow Chacter/m3_sc called without a prototype
+local shCharacterSetEnemyMKNLow Chacter/m3_sc called without a prototype
+local shCharacterSetEnemyTYULow Chacter/m3_sc called without a prototype
+local shCharacterSetEnemyIKELow Chacter/m3_sc called without a prototype
+local shCharacterSetEnemyPAPLow Chacter/m3_sc called without a prototype
+local shCharacterSetEnemyEDBLow Chacter/m3_sc called without a prototype
+local shCharacterSetEnemyBOSLow Chacter/m3_sc called without a prototype
+local shCharacterSetEnemyREDLow Chacter/m3_sc called without a prototype
+local shCharacterSetEnemyONILow Chacter/m3_sc called without a prototype
+local shCharacterSetEnemyARMLow Chacter/m3_sc called without a prototype
+local shCharacterSetObjectNIKLow Chacter/m3_sc called without a prototype
+local shCharacterSetObjectLow Chacter/m3_sc called without a prototype
+local shCharacterSetWorldScreenItemLow Chacter/m3_sc called without a prototype
+local shCharacterSetItemScreenItemLow Chacter/m3_sc called without a prototype
+local vcRetNearRatioSwitchAreaForCircleCam view/vc_calc declared with a 16-byte aligned by-value struct (the DWARF drops the alignment)

@@ -1,0 +1,11 @@
+# Python packages for the build (pinned: the split, and so the matching build, depends on them).
+splat64[mips]==0.50.0
+spimdisasm==1.42.4
+rabbitizer==1.16.2
+PyYAML==6.0.3
+pylibyaml==0.1.0
+intervaltree==3.1.0
+tqdm==4.67.1
+colorama==0.4.6
+# decomp-permuter (tools/permute.py; optional)
+toml==0.10.2
