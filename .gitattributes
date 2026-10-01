@@ -5,7 +5,6 @@
 *.png binary
 *.iso binary
 # Generated files (regenerated and checked by tools/check_all.sh)
-progress/report.json -text linguist-generated
 config/standin_deps.txt linguist-generated
 docs/stand-ins.md linguist-generated
 docs/dwarf-fidelity.md linguist-generated

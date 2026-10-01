@@ -38,4 +38,4 @@ A stand-in for stripped code is a `__stripped_*` function (docs/stand-ins.md): a
 
 "In C units" counts every function of a unit built from C, including one linked from the original code.
 
-Complete units: 312 of 337 game units, 76.38% of game code. A unit is complete when it is built from C, has no function linked from the original code and has no fake match; it can still contain the fitted matches, order fits and assembly above. `configure.py` marks exactly these units complete in `objdiff.json`, with the same definition (`fake_units()` in `tools/progress.py`), so decomp.dev's "fully linked" counts the same units.
+Complete units: 312 of 337 game units, 76.38% of game code. A unit is complete when it is built from C, has no function linked from the original code and has no fake match; it can still contain the fitted matches, order fits and assembly above. `configure.py` marks exactly these units complete in `objdiff.json`, with the same definition (`fake_units()` in `tools/progress.py`).

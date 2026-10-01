@@ -10,7 +10,6 @@
 # 6. config/standin_deps.txt is current: every stand-in's dependents measured again
 # 7. the generated reports are current: regenerated and compared with the working copy
 #    (PROGRESS.md, docs/stand-ins.md, docs/dwarf-fidelity.md, docs/layout-fidelity.md)
-# 8. progress/report.json (the report decomp.dev reads) is current: regenerated and compared
 # The full output of steps 4, 5 and the fidelity reports is kept in build/check_all/.
 set -e
 PY=${PY:-.venv/bin/python}
@@ -61,12 +60,5 @@ regen PROGRESS.md $PY tools/progress.py
 regen docs/stand-ins.md standins_md
 regen docs/dwarf-fidelity.md dwarf_md
 regen docs/layout-fidelity.md layout_md
-
-step "decomp.dev report"
-[ -x tools/objdiff-cli ] || { echo "tools/objdiff-cli missing: $PY tools/download_tools.py --objdiff"; exit 1; }
-ninja report | tail -1
-cmp -s build/report.json progress/report.json || {
-    echo "progress/report.json is stale: cp build/report.json progress/report.json (docs/decomp-dev.md)"; exit 1; }
-echo "progress/report.json is current"
 
 printf '\nall checks passed\n'

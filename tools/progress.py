@@ -47,7 +47,7 @@ Every matched game function falls in exactly one of these categories, the first 
 
 A unit is complete when it is built from C, no function in it is linked from the original code,
 and no function in it is a fake match (fake_units()). `configure.py` marks exactly those units
-complete in objdiff.json (what decomp.dev calls fully linked).
+complete in objdiff.json.
 
 "Game" excludes the Sony libraries and the C library, newlib (both lib/*), crt0, the Metrowerks runtime and the
 sound driver's EE side (sd0712/*, built outside the game's source tree), which are libraries.
@@ -441,8 +441,7 @@ def main():
               "game code. A unit is complete when it is built from C, has no function linked from the "
               "original code and has no fake match; it can still contain the fitted matches, order fits and "
               "assembly above. `configure.py` marks exactly these units complete in `objdiff.json`, with the "
-              "same definition (`fake_units()` in `tools/progress.py`), so decomp.dev's \"fully linked\" "
-              "counts the same units."]
+              "same definition (`fake_units()` in `tools/progress.py`)."]
     for unit, name in sorted(order_fits - seen):
         print(f"warning: config/order_fits.txt: no function {unit} {name}", file=sys.stderr)
     text = "\n".join(lines) + "\n"

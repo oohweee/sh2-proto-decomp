@@ -62,7 +62,7 @@ header dependencies (`tools/cdeps.py` writes a depfile per C object).
 2. Add `main <unit>` (or `gx_<name> <unit>`) to `config/c_units.txt`.
 3. Full build: `tools/wsl .venv/bin/python configure.py` then `tools/wsl ninja`. All targets must
    print `OK`. `sh tools/check_all.sh` runs every check (lint, build, every unit, shift test,
-   stand-in dependents, progress, the decomp.dev report).
+   stand-in dependents, progress).
 
 ## Functions that don't match
 

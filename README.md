@@ -14,13 +14,6 @@ logic.
 
 ## Status
 
-[![Game code matched](https://decomp.dev/oohweee/sh2-proto-decomp.svg?mode=shield&category=game&measure=code&label=game%20code%20matched)](https://decomp.dev/oohweee/sh2-proto-decomp)
-[![Fully linked](https://decomp.dev/oohweee/sh2-proto-decomp.svg?mode=shield&category=game&measure=complete_code&label=fully%20linked)](https://decomp.dev/oohweee/sh2-proto-decomp)
-
-The badges are [decomp.dev](https://decomp.dev/oohweee/sh2-proto-decomp)'s figures: "matched" counts
-fitted and fake matches, as it does for every project there; "fully linked" counts a unit only
-when it has no fake match and no function linked from the original code. The clean figure is below.
-
 All of the game's code on the disc is decompiled. 91.71% of it matches from plain C; everything else is counted below and in
 [PROGRESS.md](PROGRESS.md) (`tools/progress.py`), where each matched function falls in exactly one
 category.
@@ -41,7 +34,7 @@ category.
   39 more depend on stand-ins where the original had room for code (19) or where that can't be
   told (20), and 17 on a spelling chosen for the constant order among spellings that compile the
   same (order fits, `config/order_fits.txt`). See "Honesty notes" below.
-- A unit counts as complete (objdiff's and decomp.dev's "fully linked") only when none of its functions is
+- A unit counts as complete (objdiff's "complete" flag) only when none of its functions is
   linked from the original code and none is a fake match: 312 of the 337 units, 76.38% of the
   game's code.
 - The build is code-shiftable within main's `.text` slack: `tools/shift_test.py` inserts padding
@@ -218,9 +211,7 @@ The tools below run with the virtual environment's Python: `.venv/bin/python too
   `ninja objdiff` builds the objects it needs; `tools/download_tools.py --objdiff` fetches
   objdiff-cli for reports (`tools/objdiff-cli report generate`). Its `game` category agrees with
   `tools/progress.py`; its totals over all code don't, because it counts the library and data
-  objects differently ([docs/decomp-dev.md](docs/decomp-dev.md)).
-- `ninja report`: the objdiff progress report decomp.dev reads, committed as `progress/report.json`
-  (`check_all.sh` fails if it's stale; see [docs/decomp-dev.md](docs/decomp-dev.md)).
+  objects differently.
 - `tools/nonmatching.py`: how far each function linked from the original code is from its C.
 - `tools/dwarf_compare.py`: which matched functions' locals still differ from the original's DWARF
   ([docs/dwarf-fidelity.md](docs/dwarf-fidelity.md)); `tools/standins.py`: where the original had
@@ -239,7 +230,6 @@ The tools below run with the virtual environment's Python: `.venv/bin/python too
 | `config/` | unit list, symbol names, type names, prototype corrections, stripped/fallback functions |
 | `tools/` | splitter configuration, build helpers, diffing, progress, tests |
 | `docs/` | documentation (below) |
-| `progress/` | `report.json`, the progress report for decomp.dev (generated) |
 
 ## Documentation
 
@@ -276,8 +266,6 @@ About the decompilation:
   still differ from the original's DWARF.
 - [docs/layout-fidelity.md](docs/layout-fidelity.md) (generated): matched functions whose
   statements still differ from the original's line table.
-- [docs/decomp-dev.md](docs/decomp-dev.md): the progress report for decomp.dev and how it is
-  published.
 - [PROGRESS.md](PROGRESS.md) (generated): the figures.
 
 ## Help wanted
