@@ -14,6 +14,13 @@ logic.
 
 ## Status
 
+[![Game code matched](https://decomp.dev/oohweee/sh2-proto-decomp.svg?mode=shield&category=game&measure=code&label=game%20code%20matched)](https://decomp.dev/oohweee/sh2-proto-decomp)
+[![Fully linked](https://decomp.dev/oohweee/sh2-proto-decomp.svg?mode=shield&category=game&measure=complete_code&label=fully%20linked)](https://decomp.dev/oohweee/sh2-proto-decomp)
+
+The badges are [decomp.dev](https://decomp.dev/oohweee/sh2-proto-decomp)'s figures: "matched" counts
+fitted and fake matches, as it does for every project there; "fully linked" counts a unit only
+when it has no fake match and no function linked from the original code. The clean figure is below.
+
 All of the game's code on the disc is decompiled. 91.71% of it matches from plain C; everything else is counted below and in
 [PROGRESS.md](PROGRESS.md) (`tools/progress.py`), where each matched function falls in exactly one
 category.
